@@ -1,0 +1,89 @@
+Prompt 1:
+
+Crie uma API RESTful com funções CRUD para gerenciamento de usuários.
+
+Requisitos:
+
+Linguagem: JavaScript (Node.js)
+Framework: Express.js
+Operações CRUD:
+Create
+Read
+Update
+Delete
+
+Regras:
+
+Utilize estrutura simples e funcional.
+Os dados podem ser armazenados inicialmente em memória.
+Organize o código de forma legível.
+Entregue o código completo.
+Explique como executar a aplicação.
+______________________________________________________________________________________
+
+Prompt 2:
+
+Refatore a API anterior aplicando melhorias de escalabilidade e manutenção.
+
+Novos requisitos:
+
+Aplicar arquitetura em camadas:
+controller
+service
+repository
+Utilizar PostgreSQL(v 18) como banco de dados.
+Utilizar Prisma ORM(v7.8.0.).
+Implementar validação de dados.
+Melhorar clareza e organização do código.
+Implementar tratamento de erros.
+
+Regras:
+
+Preserve todas as funcionalidades CRUD anteriores.
+Explique a estrutura de pastas.
+Não definir a url no arquivo schema.prisma(não e permitido nesta versão)
+Entregue instruções completas de configuração.
+Gere código completo.
+______________________________________________________________________________________
+
+Prompt 3:
+
+Aplique melhorias de segurança na API anterior seguindo princípios do OWASP API Security Top 10.
+
+Novos requisitos:
+
+Implementar autenticação.
+Implementar autorização de usuário.
+Implementar verificação de autorização em nível de objeto.
+Adicionar proteção contra ataques de negação de serviço (DoS).
+Implementar rate limiting.
+Garantir que usuários não possam acessar dados de outros usuários.
+Melhorar respostas de erro evitando exposição desnecessária de informações.
+
+Regras:
+
+Preserve a arquitetura existente.
+Preserve as funcionalidades CRUD.
+Explique as medidas de segurança implementadas.
+Entregue o código completo.
+ ______________________________________________________________________________________
+Prompt 4:
+
+Revise toda a aplicação buscando melhorar:
+
+Clareza de código.
+Padronização.
+Organização.
+Boas práticas.
+Legibilidade.
+Segurança.
+Manutenibilidade.
+Escalabilidade.
+
+Além disso:
+
+Identifique possíveis problemas restantes.
+Explique quais melhorias foram realizadas.
+Gere uma versão final consolidada.
+Entregue código completo de cada arquivo.
+instruções de uso da api.
