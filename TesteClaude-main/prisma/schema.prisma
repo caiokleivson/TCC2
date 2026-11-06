@@ -1,0 +1,69 @@
+// prisma/schema.prisma
+//
+// IMPORTANTE (Prisma 7):
+// A propriedade `url` foi removida do bloco `datasource`.
+// A URL de conexão agora é configurada em `prisma.config.js` na raiz do projeto.
+// Consulte: https://www.prisma.io/docs/orm/reference/prisma-config-reference
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  name         String
+  email        String         @unique
+  passwordHash String         @map("password_hash")
+  role         Role           @default(USER)
+  isActive     Boolean        @default(true) @map("is_active")
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt      @map("updated_at")
+
+  refreshTokens RefreshToken[]
+  auditLogs     AuditLog[]
+
+  @@map("users")
+}
+
+// Refresh tokens armazenados no banco — permite revogação individual ou total
+model RefreshToken {
+  id        String    @id @default(uuid())
+  userId    Int       @map("user_id")
+  tokenHash String    @map("token_hash")   // hash SHA-256 do token, nunca o valor bruto
+  expiresAt DateTime  @map("expires_at")
+  revokedAt DateTime? @map("revoked_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([tokenHash])
+  @@map("refresh_tokens")
+}
+
+// Trilha de auditoria: quem fez o quê e quando
+model AuditLog {
+  id         Int      @id @default(autoincrement())
+  userId     Int?     @map("user_id")          // null = ação anônima (ex: login falho)
+  action     String                             // ex: "USER_UPDATED", "LOGIN_FAILED"
+  targetId   Int?     @map("target_id")         // ID do recurso afetado
+  targetType String?  @map("target_type")       // ex: "User"
+  meta       Json?                              // dados extras sem informação sensível
+  ip         String?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([action])
+  @@map("audit_logs")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
